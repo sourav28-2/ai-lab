@@ -1,0 +1,45 @@
+import random
+def generate_content(topic):
+  intro =f"Welcome to our guide on {topic}! In this post, we will explore key insights and tips."
+  headings= ["Introduction", "Why It Matters", "Best Practices", "Conclusion"]
+  tips = [
+      "Use AI tools to analyze customer behavior.",
+      "Optimize website content for better engagement.",
+      "Leverage email marketing to drive conversions.",
+      "Ensure mobile responsiveness for a better user experience."
+  ]
+
+  content = f"{intro}\n\n"
+  for heading in headings:
+    content += f"## {heading}\n"
+    content += f"- {random.choice(tips)}\n\n"
+  return content
+
+topic = "AI in Marketing"
+content = generate_content(topic)
+print(content)
+def optimize_content(content):
+  seo_keywords = ["AI marketing", "SEO optimization", "digital strategy", "customer engagement"]
+  for keyword in seo_keywords:
+    if keyword not in content:
+      content += f"\n🔹 Don't forget: {keyword} is key for success!"
+  return content
+
+
+optimized_content = optimize_content(content)
+print(optimized_content)
+def send_email(name, product):
+  email_template=f"""
+  Subject: Special Offer for You,{name}!
+  Hi {name}
+  We noticed you're interested in {product}.Here's anexclusive deal just for you!
+
+
+  Visit our website now and enjoy special discounts.
+  Best Regards,
+  Your AI Marketing Team
+  """
+
+
+  print(email_template)
+send_email("Alok","AI Business Tools")
