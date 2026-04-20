@@ -1,0 +1,34 @@
+import random
+
+def generate_email(user_name, user_interest, company_name, product):
+  greetings = [
+      f"Hi {user_name},",
+      f"Hello {user_name},",
+      f"Dear {user_name},",
+  ]
+  opening_lines = [
+      f"Hope you're doing well! As someone interested in {user_interest}, we have something exciting for you.",
+      f"I wanted to personally reach out since we know your passion for {user_interest}.",
+      f"Since you’re interested in {user_interest}, we thought you’d love to hear about this."
+  ]
+  body = f"At {company_name}, we are excited to introduce our latest {product}, designed to enhance your experience with {user_interest}."
+  closing_lines = [
+      "Let’s schedule a quick chat to explore how this can benefit you!",
+      "Would love to hear your thoughts. Let’s connect soon!",
+      "Looking forward to your feedback. Let’s discuss further!"
+  ]
+  signature = "Best Regards,\nThe {company_name} Team".format(company_name=company_name)
+  email = (
+      f"{random.choice(greetings)}\n\n"
+      f"{random.choice(opening_lines)}\n\n"
+      f"{body}"
+      f"\n\n{random.choice(closing_lines)}\n\n"
+      f"{signature}"
+  )
+  return email
+
+user_name = "SOURAV"
+user_interest = "AI and Automation"
+company_name = "CANARA ENGINEERING COLLEGE"
+product = "Smart Email Assistant"
+print(generate_email(user_name, user_interest, company_name, product))
