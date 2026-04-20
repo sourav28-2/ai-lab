@@ -1,0 +1,29 @@
+import random
+from collections import defaultdict
+
+def train_model(sentences):
+  word_dict = defaultdict(list)
+  for sentence in sentences:
+    words = sentence.split()
+    for i in range(len(words) - 1):
+      word_dict[words[i]].append(words[i+1])
+  return word_dict
+
+def predict_next_word(word_dict, text):
+  words = text.split()
+  last_word = words[-1] if words else ""
+  return random.choice(word_dict.get(last_word, ["..."]))
+
+
+sentences = [
+  "Hello how are you",
+  "I am doing great",
+  "Nice to meet you",
+  "Hope you are having a good day",
+  "Looking forward to our meeting"
+]
+
+word_dict = train_model(sentences)
+user_input = input("Type a sentence:")
+next_word = predict_next_word(word_dict, user_input)
+print(f"Predicted next word:{next_word}")
