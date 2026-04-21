@@ -1,0 +1,52 @@
+from sklearn.ensemble import RandomForestClassifier
+import numpy as np
+
+# Mock training data: [hour_of_day, location_code] => click label (1 = click, 0 = no click)
+training_data = np.array([
+    [10, 1], [14, 2], [18, 1], [20, 2], [12, 1],
+])
+
+labels = np.array([1, 0, 1, 0, 1])
+
+# Train the model
+model = RandomForestClassifier()
+model.fit(training_data, labels)
+
+# Ads pool with three different ads
+ads_pool = [
+    {"ad_text": "Buy Shoes - 50% Off!", "tag": 1},
+    {"ad_text": "Try New Coffee!", "tag": 2},
+    {"ad_text": "EAT AND PAY 50%", "tag": 3}
+]
+
+# Function to select ad based on predicted click probability
+def get_ad(hour: int, location: str):
+    loc = location.lower()
+
+    if loc == "india":
+        loc_code = 1
+    elif loc == "usa":
+        loc_code = 2
+    else:
+        loc_code = 3
+
+    features = [hour, loc_code]
+    click_prob = model.predict_proba([features])[0][1]
+
+    if click_prob > 0.7:
+        return ads_pool[0]  # high chance of clicking
+    elif click_prob > 0.4:
+        return ads_pool[1]  # moderate chance
+    else:
+        return ads_pool[2]  # low chance
+
+
+
+hour = 8
+location = "INDIA"
+recommended_ad = get_ad(hour, location)
+print(f"Recommended Ad for {location} at {hour}:", recommended_ad["ad_text"])
+
+
+result = get_ad(20, "US")
+print(f"Recommended Ad for {location} at {hour}:", result["ad_text"])
